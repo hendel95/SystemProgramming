@@ -82,22 +82,35 @@ int main(){
 
 void reset()
 {
+	int i;
 	dir =LEFT;
 	length=5;
 	moved = 0;
 	score = 0;
 	length = 5;
+	obs_num = 0;
+	for(i=0;i<100;i++)
+	{
+		location[i].x=0;
+		location[i].y=0;
+	}
 	system("cls");
+	title();
 	bound();
-
 }
 void title(){
 	bound();
 
 	set_cr_noecho_mode();
-	mvaddstr(11, 31, "THE SNAKE GAME");
-	mvaddstr(12, 30,"PRESS ANY BUTTON");
-	mvaddstr(15, 33,"TEAM:10");	
+	mvaddstr(7, 31, "<<THE SNAKE GAME>>");
+	mvaddstr(8, 32,"PRESS ANY BUTTON");
+	mvaddstr(11, 31,"up : press 'E' button");
+	mvaddstr(12, 31,"down : prees 'D' button");
+	mvaddstr(13, 31,"left : press 'S' button");
+	mvaddstr(14, 31,"right : press 'F' button");
+	mvaddstr(15, 31,"slow : eat s,j,c,h,i");
+	mvaddstr(16, 31,"obstacle : X");
+	mvaddstr(17, 31,"quit : press 'Q'");
 	move(BOT_ROW+1, 0);
 	refresh();
 
@@ -163,11 +176,12 @@ void game_over()
 	move(11,31);
 	addstr("***game over***");
 	mvaddstr(12, 32, "score: ");
+	mvaddstr(14, 25,"Restart : wait 5 seconds");
 	move(12, 37);
 	mvprintw(12,41,"%d", score);
 	move(BOT_ROW+1, 0);
 	refresh();
-	sleep(3);
+	sleep(5);
 	endwin();
 	reset();
 	set_up();
