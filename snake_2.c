@@ -37,6 +37,15 @@ int speed = 100;
 char food;
 int x_ob,y_ob;
 
+typedef struct obstacle
+{
+	int x,y;
+}obstacle;
+
+int obs_num;
+
+obstacle location[100];
+
 int main(){
 	int ch;
 	title();
@@ -127,15 +136,20 @@ void make_obstacle()
                 //srand(100);
 		x_ob=rand() % (MAP_X-2) + 3;
                 y_ob=rand()% (MAP_Y-2) + 3;
-
-                for(i=0;i<length ;i++)
+		
+                for(i=0;i<length ;i++){
 			if((x_ob == snake[i].x_pos && y_ob == snake[i].y_pos) ||( x == x_ob && y == y_ob))
 			{
 				i=0;  
 			      break;
 			}
+			
+		}
                 if(i==length)
                 {
+			location[obs_num].x = x_ob;
+			location[obs_num].y = y_ob;
+			obs_num++;
                         mvprintw(y_ob,x_ob,"%c",default_ch);
                         return;
 		}
@@ -191,6 +205,10 @@ void move_snake(int signum){
               if(snake[0].x_pos == snake[i].x_pos && snake[0].y_pos == snake[i].y_pos)
                       game_over();
 	
+	for(i=0;i<obs_num;i++)
+		if(location[i].x == snake[0].x_pos && location[i].y == snake[0].y_pos)
+			game_over();
+
 	if((snake[0].x_pos == x_ob && snake[0].y_pos == y_ob))
 		game_over();
 
