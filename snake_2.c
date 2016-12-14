@@ -113,7 +113,7 @@ void make_obstacle()
 	int i;
 	while(1)
 	{
-                srand((unsigned)time(NULL));
+                //srand(100);
 		x_ob=rand() % (MAP_X-2) + 3;
                 y_ob=rand()% (MAP_Y-2) + 3;
 
@@ -125,7 +125,7 @@ void make_obstacle()
 			}
                 if(i==length)
                 {
-                        mvprintw(y,x,"%c",default_ch);
+                        mvprintw(y_ob,x_ob,"%c",default_ch);
                         return;
 		}
         }
@@ -179,6 +179,8 @@ void move_snake(int signum){
               if(snake[0].x_pos == snake[i].x_pos && snake[0].y_pos == snake[i].y_pos)
                       game_over();
 	
+	if((snake[0].x_pos == x_ob && snake[0].y_pos == y_ob))
+		game_over();
 
 	mvaddch(snake[length-1].y_pos, snake[length-1].x_pos, BLANK);
 	for(i = length-1; i>0; i--){
@@ -193,7 +195,7 @@ void move_snake(int signum){
 		if(dir == DOWN) snake[0].y_pos++;
 	
 	  	mvaddch(snake[0].y_pos, snake[0].x_pos, HEAD);	
-		if(snake[0].x_pos == 2 || snake[0].x_pos == 2+MAP_X || snake[0].y_pos == 2 || snake[0].y_pos == 2+MAP_Y || (snake[0].x_pos == x_ob && snake[0].y_pos == y_ob))
+		if(snake[0].x_pos == 2 || snake[0].x_pos == 2+MAP_X || snake[0].y_pos == 2 || snake[0].y_pos == 2+MAP_Y )
 			game_over();
 		refresh();
 	}
