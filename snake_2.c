@@ -35,6 +35,8 @@ struct ppball snake[100];
 int x,y;
 int speed = 100;
 char food;
+int x_ob,y_ob;
+
 int main(){
 	int ch;
 	title();
@@ -106,6 +108,29 @@ void make_food()
 
 }
 
+void make_obstacle()
+{
+	int i;
+	while(1)
+	{
+                srand((unsigned)time(NULL));
+		x_ob=rand() % (MAP_X-2) + 3;
+                y_ob=rand()% (MAP_Y-2) + 3;
+
+                for(i=0;i<length ;i++)
+			if((x_ob == snake[i].x_pos && y_ob == snake[i].y_pos) ||( x == x_ob && y == y_ob))
+			{
+				i=0;  
+			      break;
+			}
+                if(i==length)
+                {
+                        mvprintw(y,x,"%c",default_ch);
+                        return;
+		}
+        }
+
+}
 
 void game_over()
 {
@@ -131,11 +156,11 @@ void plus_score()
 void move_snake(int signum){
 	
 	int i;
-//	signal(SIGALRM, SIG_IGN);
 	
 	if(snake[0].x_pos == x && snake[0].y_pos == y)
         {
                 make_food();
+		make_obstacle();
 		refresh();
                 ++length;
 		plus_score();
@@ -168,12 +193,11 @@ void move_snake(int signum){
 		if(dir == DOWN) snake[0].y_pos++;
 	
 	  	mvaddch(snake[0].y_pos, snake[0].x_pos, HEAD);	
-		if(snake[0].x_pos == 2 || snake[0].x_pos == 2+MAP_X || snake[0].y_pos == 2 || snake[0].y_pos == 2+MAP_Y)
+		if(snake[0].x_pos == 2 || snake[0].x_pos == 2+MAP_X || snake[0].y_pos == 2 || snake[0].y_pos == 2+MAP_Y || (snake[0].x_pos == x_ob && snake[0].y_pos == y_ob))
 			game_over();
 		refresh();
 	}
-	
-//	signal(SIGALRM, move_snake);
+
 }
 
 void bound(){
