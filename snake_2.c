@@ -67,10 +67,21 @@ int main(){
 	
 	}
 	wrap_up();
-
+	
 	return 0;
 }
 
+void reset()
+{
+	dir =LEFT;
+	length=5;
+	moved = 0;
+	score = 0;
+	length = 5;
+	system("cls");
+	bound();
+
+}
 void title(){
 	bound();
 
@@ -144,7 +155,8 @@ void game_over()
 	refresh();
 	sleep(3);
 	endwin();
-	exit(0);
+	reset();
+	set_up();
 }
 
 void plus_score()
