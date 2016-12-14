@@ -36,7 +36,7 @@ int x,y;
 int speed = 100;
 char food;
 int x_ob,y_ob;
-
+int MAX_SCORE;
 typedef struct obstacle
 {
 	int x,y;
@@ -176,13 +176,17 @@ void make_obstacle()
 
 void game_over()
 {
+	if(score > MAX_SCORE)
+		MAX_SCORE = score;
 	initscr();
 	move(11,31);
 	addstr("***game over***");
-	mvaddstr(12, 30, "score: ");
-	mvaddstr(14, 23,"Restart : wait 5 seconds");
+	mvaddstr(12, 32, "Your score: ");
+	mvaddstr(13, 32, "High score : ");
+	mvaddstr(14, 26,"Restart : wait 5 seconds");
 	move(12, 37);
-	mvprintw(12,39,"%d", score);
+	mvprintw(12,47,"%d", score);
+	mvprintw(13,47,"%d", MAX_SCORE);
 	move(BOT_ROW+1, 0);
 	refresh();
 	sleep(5);
