@@ -102,15 +102,16 @@ void title(){
 	bound();
 
 	set_cr_noecho_mode();
-	mvaddstr(7, 31, "<<THE SNAKE GAME>>");
-	mvaddstr(8, 32,"PRESS ANY BUTTON");
-	mvaddstr(11, 31,"up : press 'E' button");
-	mvaddstr(12, 31,"down : prees 'D' button");
-	mvaddstr(13, 31,"left : press 'S' button");
-	mvaddstr(14, 31,"right : press 'F' button");
-	mvaddstr(15, 31,"slow : eat s,j,c,h,i");
-	mvaddstr(16, 31,"obstacle : X");
-	mvaddstr(17, 31,"quit : press 'Q'");
+	mvaddstr(7, 30, "<<THE SNAKE GAME>>");
+	mvaddstr(8, 31,"PRESS ANY BUTTON");
+	mvaddstr(11, 30,"up : press 'E' button");
+	mvaddstr(12, 30,"down : prees 'D' button");
+	mvaddstr(13, 30,"left : press 'S' button");
+	mvaddstr(14, 30,"right : press 'F' button");
+	mvaddstr(15, 30,"slow : eat s,j,c,h,i");
+	mvaddstr(16, 30,"obstacle : X");
+	mvaddstr(17, 30,"quit : press 'Q'");
+	mvaddstr(18, 30,"score : a = 1, b = 2,...,z = 26");
 	move(BOT_ROW+1, 0);
 	refresh();
 
@@ -127,7 +128,10 @@ void make_food()
 		x=rand() % (MAP_X-2) + 3;
 		y=rand()% (MAP_Y-2) + 3;
 		food=rand()% 26 + 97;
-	
+		
+		if(food == 'x')
+			continue;
+			
 		for(i=0;i<length ;i++)	
 			if(x == snake[i].x_pos && y == snake[i].y_pos)
 				break;
@@ -175,10 +179,10 @@ void game_over()
 	initscr();
 	move(11,31);
 	addstr("***game over***");
-	mvaddstr(12, 32, "score: ");
-	mvaddstr(14, 25,"Restart : wait 5 seconds");
+	mvaddstr(12, 30, "score: ");
+	mvaddstr(14, 23,"Restart : wait 5 seconds");
 	move(12, 37);
-	mvprintw(12,41,"%d", score);
+	mvprintw(12,39,"%d", score);
 	move(BOT_ROW+1, 0);
 	refresh();
 	sleep(5);
