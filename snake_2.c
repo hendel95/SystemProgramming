@@ -140,8 +140,8 @@ void move_snake(int signum){
                 ++length;
 		plus_score();
 		
-		if(food == 's')
-			speed+=10;
+		if(food == 's'||food == 'h' || food == 'c' || food == 'j' || food =='i')
+			speed+=6;
 		else
 			speed-=2;
 		
