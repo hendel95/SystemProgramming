@@ -274,6 +274,7 @@ void bound(){
 	addstr("score: ");
 	move(MAP_YINIT -1, MAP_XINIT+MAP_X-6);
 	addstr("0");
+	mvprintw(MAP_YINIT -1 , MAP_XINIT,"HIGH SCORE : %d",MAX_SCORE);
 	move(MAP_YINIT + MAP_Y+1, MAP_XINIT + MAP_X+1);
 	refresh();
 
